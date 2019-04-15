@@ -10,15 +10,13 @@ Este projeto utiliza as seguintes bibliotecas:
 
 
 ## Estrutura do projeto
-
-/
-|-App.js: Tela inicial da aplicação, aqui estão as rotas e o loading inicial do aplicativo
-|-src
-  |-assets: Imagens, icones e outros recursos estáticos do app.
-  |-components: Compomentes reutilizaveis da aplicação, normalmente são componentes sem estado (PureComponents)
-  |-repositories: Conjunto de funções que utilizam o AsyncStorage para armazenar os baralhos e flashcards.
-  |-utils: Funções auxiliares e contantes do aplicativo, utilizadas por todos os componentes.
-  |-views: Componentes (com estado) que agrupam outros componentes para formar as telas do aplicativo.
+mobile-flashcards/
+    |-App.js: Tela inicial da aplicação, aqui estão as rotas e o loading inicial do aplicativo
+    |-assets: Imagens, icones e outros recursos estáticos do app.
+    |-components: Compomentes reutilizaveis da aplicação, normalmente são componentes sem estado (PureComponents)
+    |-repositories: Conjunto de funções que utilizam o AsyncStorage para armazenar os baralhos e flashcards.
+    |-utils: Funções auxiliares e contantes do aplicativo, utilizadas por todos os componentes.
+    |-views: Componentes (com estado) que agrupam outros componentes para formar as telas do aplicativo.
 
 
 ## Instalando o Create React Native App

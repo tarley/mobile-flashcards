@@ -7,13 +7,20 @@ import {createStackNavigator, createAppContainer} from 'react-navigation'
 import { Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
-import ListaBaralhosView from './src/views/ListaBaralhosView';
-//import Baralho from './src/models/Baralho';
-import * as Baralho from './src/repositories/BaralhoRepository';
+import * as BaralhoRepository from './repositories/BaralhoRepository';
+//import * as FlashCardsAPI from './repositories/FlashCardsAPI';
+
+import HomeView from './views/HomeView';
+import BaralhoView from './views/BaralhoView';
+import QuizView from './views/QuizView';
+import NovoBaralhoView from './views/NovoBaralhoView';
 
 
 const MainNavigation = createStackNavigator({
-  Home: {screen: ListaBaralhosView}
+  Home: {screen: HomeView},
+  Baralho: {screen: BaralhoView},
+  Quiz: {screen: QuizView},
+  NovoBaralho: {screen: NovoBaralhoView}
 },
 {
   headerMode: 'none'
@@ -33,11 +40,25 @@ export default class App extends React.Component {
       ...Ionicons.font,
     });
 
-    Baralho.removeAll();
-    
-    console.log(await Baralho.buscarTodos());
-    console.log(await Baralho.buscarPorTitulo('JavaScript'));
+    //FlashCardsAPI.clearDecks();
+    /*
+    await FlashCardsAPI.saveDeckTitle('JavaScript');
+    await FlashCardsAPI.saveDeckTitle('React');
+    await FlashCardsAPI.saveDeckTitle('ReactNative');
 
+    await FlashCardsAPI.addCardToDeck({teste: 'aaaa', a: 'talsdjf'}, 'JavaScript')
+    await FlashCardsAPI.addCardToDeck( {teste: '222', a: '1111'}, 'JavaScript')
+    console.log('componentDidMount ')
+    console.log(await FlashCardsAPI.getDecks())
+    console.log('====================================')
+    */
+
+    BaralhoRepository.removerTodos();
+    console.log('*** zerado ***')
+    console.log(await BaralhoRepository.buscarTodos());
+    //console.log(await BaralhoRepository.buscarPorTitulo('JavaScript'));
+
+    
     /*
     try {
       Baralho.adicionarCartao('JavaScript', 'Teste?', '123');
@@ -46,17 +67,30 @@ export default class App extends React.Component {
     }
     */
 
-    /*
-    Baralho.salvar('JavaScript');
-    Baralho.salvar('React');
-    Baralho.salvar('React Native');
+    
+    BaralhoRepository.adicionar('JavaScript');
+    console.log('*** Objeto JavaScript ***')
+    console.log(await BaralhoRepository.buscarTodos());
+    BaralhoRepository.adicionar('React');
+    console.log('*** Objeto React ***')
+    console.log(await BaralhoRepository.buscarTodos());
 
-    Baralho.adicionarCartao('JavaScript', 'Teste?', '123');
-    Baralho.adicionarCartao('JavaScript', 'Teste2?', '876');
 
-    console.log(await Baralho.buscarTodos());
-    console.log(await Baralho.buscarPorTitulo('JavaScript'));
-    */
+
+    console.log('*** Procurando 1 item ***')
+    console.log(await BaralhoRepository.buscarPorTitulo('JavaScript'));
+    //BaralhoRepository.salvar('React Native');
+    
+    BaralhoRepository.adicionarQuestao('JavaScript', 'Does React Native work with Android?', 'Yes, it works');
+    console.log('*** Adicionando uma pergunta ***')
+    console.log(await BaralhoRepository.buscarTodos());
+
+    BaralhoRepository.adicionarQuestao('JavaScript', 'Does React Native work with IOS?', 'Yes, it works, but more expensive');
+    console.log('*** Adicionando a segunda pergunta ***')
+    console.log(await BaralhoRepository.buscarTodos());
+    //console.log(await BaralhoRepository.buscarTodos());
+    //console.log(await BaralhoRepository.buscarPorTitulo('JavaScript'));
+    
     this.setState({ loading: false });
   }
 

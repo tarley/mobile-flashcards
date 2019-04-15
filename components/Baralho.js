@@ -2,14 +2,16 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Body, Text, CardItem } from 'native-base';
 
-export default function Baralho({titulo, cartas}) { 
-    const qtd = cartas.length;
+export default function Baralho({titulo, questoes, onPress}) { 
+    const qtd = questoes.length;
 
     return(
-        <CardItem bordered button style={styles.cardItem} >
+        <CardItem bordered button 
+            style={styles.cardItem}
+            onPress={onPress} >
             <Body style={styles.cardBody}>
-                <Text style={styles.nomeBaralho}>{titulo}</Text>
-                <Text style={styles.qtdCartas}>{`${qtd} ${qtd == 1 ? 'Card' : 'Cards'}`}</Text>
+                <Text style={styles.titulo}>{titulo}</Text>
+                <Text style={styles.qtdQuestoes}>{`${qtd} ${qtd == 1 ? 'Card' : 'Cards'}`}</Text>
             </Body>
         </CardItem>
     );
@@ -23,13 +25,13 @@ const styles = StyleSheet.create({
     cardBody: {
         alignItems: 'center'
     },
-    nomeBaralho: {
+    titulo: {
         fontFamily: "Roboto",
         fontWeight: "bold",
         fontSize: 20,
         color: 'black'
     },
-    qtdCartas: {
+    qtdQuestoes: {
         fontFamily: "Roboto",
         fontWeight: "bold",
         fontSize: 12,

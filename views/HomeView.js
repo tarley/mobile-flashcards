@@ -8,26 +8,36 @@ import AppHeader from '../components/AppHeader';
 import Baralho from '../components/Baralho';
 
 
-export default class ListaBaralhosView extends Component {
+export default class HomeView extends Component {
     state = {
         baralhos: []
     }
     componentDidMount() {
-        BaralhoRepository.buscarTodos().then((baralhos) => {
-            if(baralhos)
-                this.setState({
-                    baralhos: Object.values(baralhos)
-                })
-
+        this.atualizarView();
+    }
+    atualizarView = () => {
+        BaralhoRepository.buscarTodos()
+            .then((baralhos) => this.setState({
+                baralhos: Object.values(baralhos)
+            }))
+    }
+    selecionarBaralho(baralho) {
+        this.props.navigation.navigate('Baralho', {baralho})
+    }
+    novoBaralho() {
+        this.props.navigation.navigate('NovoBaralho', {
+            atualizarView: this.atualizarView
         })
     }
     render() {
+        console.log('ListaBaralhosView render')
         const {baralhos} = this.state;
 
         return(
             <Container>
                 <AppHeader 
-                    subtitulo='Escolha um baralho'/>
+                    subtitulo='Escolha um baralho'
+                    botaoDireita={() => this.novoBaralho()} />
                 <Content padder>
                     <Card >
                         <FlatList
@@ -36,7 +46,8 @@ export default class ListaBaralhosView extends Component {
                             renderItem={({item}) => 
                                 <Baralho 
                                     titulo={item.titulo} 
-                                    cartas={item.cartas}
+                                    questoes={item.questoes}
+                                    onPress={() => this.selecionarBaralho(item)}
                                 />
                             }
                         />
