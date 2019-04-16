@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
 import {Container, Content, Text, Button} from 'native-base';
 
-import * as BaralhoRepository from '../repositories/BaralhoRepository';
-
 import AppHeader from '../components/AppHeader';
 
 

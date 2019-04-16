@@ -8,38 +8,71 @@ import AppHeader from '../components/AppHeader';
 
 
 export default class BaralhoView extends Component {
+    state = {
+        baralho: null,
+        questoes: null
+    }
+    componentDidMount() {
+        const baralho = this.props.navigation.getParam('baralho');
 
+        this.setState({
+            baralho,
+            questoes: baralho.questoes
+        })
+    }
     voltar() {
+        this.props.navigation.state.params.atualizarBaralhos();
         this.props.navigation.navigate('Home')
     }
+    atualizarView = () => {
+        
+        const {baralho} = this.state;
+
+        BaralhoRepository.buscarPorTitulo(baralho.titulo)
+            .then((baralhoAtualizado) => 
+                this.setState({
+                    baralho: baralhoAtualizado,
+                    questoes: baralhoAtualizado.questoes
+                })
+            )
+    }
     iniciarQuiz() {
-        const baralho = this.props.navigation.getParam('baralho');
+        const {baralho} = this.state;
         this.props.navigation.navigate('Quiz', {baralho});
     }
+    adicionarQuestao() {
+        const {baralho} = this.state;
+        this.props.navigation.navigate('NovaQuestao', {
+            baralho,
+            atualizarBaralho: this.atualizarView
+        });
+    }
     render() {
-        const baralho = this.props.navigation.getParam('baralho');
-        const qtd = baralho.questoes.length;
+        const {baralho, questoes} = this.state;
 
         return(
             <Container>
                 <AppHeader 
                     botaoEsquerdo={() => this.voltar()} />
-                <Content padder contentContainerStyle={styles.container}>
-                    <Text style={styles.titulo}>{baralho.titulo}</Text>
-                    <Text style={styles.qtdQuestoes}>{`${qtd} ${qtd == 1 ? 'Card' : 'Cards'}`}</Text>
-                    <Button block success 
-                        style={styles.botaoAcao}
-                    >
-                        <Text>Add Card</Text>
-                    </Button>
-                    <Button block dark 
-                        style={styles.botaoAcao}
-                        onPress={() => this.iniciarQuiz()}
-                        disabled={qtd == 0}
-                    >
-                        <Text>Start Quiz</Text>
-                    </Button>
-                </Content>
+                { baralho && questoes && (
+                    <Content padder contentContainerStyle={styles.container}>
+                        <Text style={styles.titulo}>{baralho.titulo}</Text>
+                        <Text style={styles.qtdQuestoes}>{`${questoes.length} ${questoes.length == 1 ? 'Card' : 'Cards'}`}</Text>
+                        <Button block success 
+                            style={styles.botaoAcao}
+                            onPress={() => this.adicionarQuestao()}
+                        >
+                            <Text>Adicionar questão</Text>
+                        </Button>
+                        <Button block dark 
+                            style={styles.botaoAcao}
+                            onPress={() => this.iniciarQuiz()}
+                            disabled={questoes.length == 0}
+                        >
+                            <Text>Iniciar Quiz</Text>
+                        </Button>
+                    </Content>
+                )}
             </Container>
         );
     }

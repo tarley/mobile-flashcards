@@ -11,7 +11,7 @@ export default function Baralho({titulo, questoes, onPress}) {
             onPress={onPress} >
             <Body style={styles.cardBody}>
                 <Text style={styles.titulo}>{titulo}</Text>
-                <Text style={styles.qtdQuestoes}>{`${qtd} ${qtd == 1 ? 'Card' : 'Cards'}`}</Text>
+                <Text style={styles.qtdQuestoes}>{`${qtd} ${qtd == 1 ? 'Questão' : 'Questões'}`}</Text>
             </Body>
         </CardItem>
     );

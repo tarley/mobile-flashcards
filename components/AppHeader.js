@@ -1,6 +1,6 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {Header, Left, Button, Icon, Body, Title, Subtitle, Right, Text} from 'native-base';
+import {Header, Left, Button, Icon, Body, Title, Subtitle, Right} from 'native-base';
 
 
 export default function AppHeader({subtitulo, botaoEsquerdo, botaoDireita}) {
@@ -22,7 +22,7 @@ export default function AppHeader({subtitulo, botaoEsquerdo, botaoDireita}) {
         componenteDireita = (
             <Right>
                 <Button transparent onPress={botaoDireita}>
-                    <Text>Novo Baralho</Text>
+                    <Icon name='add' />
                 </Button>
             </Right>
         );

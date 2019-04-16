@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
-import {Container, Content, Text, Button} from 'native-base';
+import {StyleSheet, Alert} from 'react-native';
+import {Container, Content, Text, Button, Input, Form, Item, Label} from 'native-base';
 
 import * as BaralhoRepository from '../repositories/BaralhoRepository';
 
@@ -9,137 +9,89 @@ import AppHeader from '../components/AppHeader';
 
 export default class NovaQuestaoView extends Component {
     state = {
-        index: 0,
-        exibirResposta: false,
-        acertos: 0,
-        erros: 0
+        pergunta: '',
+        resposta: ''
     }
     voltar() {
-        this.props.navigation.navigate('Home')
+        this.props.navigation.goBack()
     }
-
-    componenteResposta(questao) {
-        if(this.state.exibirResposta)
-            return ( <Text style={styles.resposta}>{questao.resposta}</Text> )
-        else
-            return ( 
-                <Button block info 
-                    style={styles.botaoResposta}
-                    onPress={() => this.setState({ exibirResposta: true})}>
-                    <Text>Ver resposta</Text>
-                </Button>
-            )
-    }
-    
-    quizQuestoes() {
+    criarQuestao() {
         const baralho = this.props.navigation.getParam('baralho');
-        const {index, acertos, erros} = this.state;
-        const questao = baralho.questoes[index]
-
-        return (
-            <Content padder contentContainerStyle={styles.container}>
-                <Text style={styles.titulo}>Qual é o nome do seu novo baralho?</Text>
-                <Form>
-                    <Item floatingLabel rounded>
-                        <Label>Titulo do baralho</Label>
-                        <Input />
-                    </Item>
-                </Form>
-                <Button block success 
-                    onPress={() => 
-                        this.setState({
-                            acertos: acertos + 1,
-                            index: index + 1,
-                            exibirResposta: false
-                        })
-                    }
-                    style={styles.botaoAcao}
-                >
-                    <Text>Enviar</Text>
-                </Button>
-            </Content>
-        )
-    }
-
-    quizResultado() {
-        const baralho = this.props.navigation.getParam('baralho');
-        const {acertos} = this.state;
+        const {pergunta, resposta} = this.state;
         
-        let totalAcertos = acertos * 100 / baralho.questoes.length
+        if(!pergunta || pergunta === ''){
+            Alert.alert('Nova questão', 'Favor informar uma pergunta para a questão.');
+            return;
+        }
+        
+        if(!resposta || resposta === ''){
+            Alert.alert('Nova questão', 'Favor informar uma resposta para a questão.');
+            return;
+        }
 
-        return (
-            <Content padder contentContainerStyle={styles.container}>
-                <Text style={styles.tituloResultado}>{`${totalAcertos}%`}</Text>
-                <Text style={styles.subtituloResultado}>Correto!</Text>
-            </Content>
-        )
+        BaralhoRepository.adicionarQuestao(baralho.titulo, pergunta, resposta)
+            .then(() => {
+                this.props.navigation.state.params.atualizarBaralho();
+                this.voltar();
+            });
+       
     }
     render() {
-        const baralho = this.props.navigation.getParam('baralho');
-        const {index} = this.state;
-
-        if(index < baralho.questoes.length)
-            return(
-                <Container>
-                    <AppHeader 
-                        subtitulo={`Quiz ${index + 1}/${baralho.questoes.length}`}
-                        botaoEsquerdo={() => this.voltar()} 
-                    />
-                    {this.quizQuestoes()}
-                </Container>
-            );
-        else
-            return (
-                <Container>
-                    <AppHeader 
-                        subtitulo='Resultado do Quiz'
-                        botaoEsquerdo={() => this.voltar()}
-                    />
-                    {this.quizResultado()}
-                </Container>
-            );
+        return (
+            <Container>
+                <AppHeader 
+                    subtitulo='Nova Questão'
+                    botaoEsquerdo={() => this.voltar()}
+                />
+                
+                <Content padder contentContainerStyle={styles.container}>
+                    <Form>
+                        <Text style={styles.titulo}>Qual é a nova questão do baralho?</Text>
+                        <Item floatingLabel style={styles.input}>
+                            <Label>Pergunta</Label>
+                            <Input 
+                                inputContainerStyle={styles.input}
+                                onChangeText={(pergunta) => this.setState({pergunta})} 
+                            />
+                        </Item>
+                        <Item floatingLabel style={styles.input}>
+                            <Label>Resposta</Label>
+                            <Input 
+                                inputContainerStyle={styles.input}
+                                onChangeText={(resposta) => this.setState({resposta})} 
+                            />
+                        </Item>
+                        
+                        <Button block success 
+                            onPress={() => this.criarQuestao()}
+                            style={styles.botaoAcao}
+                        >
+                            <Text>Enviar</Text>
+                        </Button>
+                    </Form>
+                </Content>
+            </Container>
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1
     },
     titulo: {
         fontFamily: "Roboto",
         fontWeight: "bold",
         fontSize: 36,
         color: 'black',
+        marginTop: 10,
         marginBottom: 10,
         textAlign: 'center'
     },
-    resposta: {
-        fontFamily: "Roboto",
-        fontWeight: "bold",
-        fontSize: 22,
-        color: 'red',
-        marginBottom: 50
-    },
-    botaoResposta: {
-        marginBottom: 50
+    input: {
+        marginBottom: 20
     },
     botaoAcao: {
         marginBottom: 10
-    },
-    tituloResultado: {
-        fontFamily: "Roboto",
-        fontWeight: "bold",
-        fontSize: 56,
-        color: 'blue',
-        textAlign: 'center'
-    },
-    subtituloResultado: {
-        fontFamily: "Roboto",
-        fontWeight: "bold",
-        fontSize: 32,
-        color: 'blue',
-        textAlign: 'center'
     }
 });

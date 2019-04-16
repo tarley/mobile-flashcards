@@ -2,6 +2,10 @@
 
 Aplicativo para dispositivos móveis (Android) que permite que usuários estudem uma coleção de flashcards. Com o app, os usuários poderão criar diferentes categorias de flashcards chamadas de "baralhos", adicionar flashcards a esses baralhos, e fazer os quizes nestes baralhos.
 
+## Carga inicial da aplicação
+
+Para facilitar nos testes, a aplicação realiza uma carga inicial de dados. Essa carga se encontra no arquivo `App.js` linha 44. 
+
 ## Bibliotecas do projeto
 Este projeto utiliza as seguintes bibliotecas:
 - react-native-elements
@@ -14,10 +18,13 @@ mobile-flashcards/
     |-App.js: Tela inicial da aplicação, aqui estão as rotas e o loading inicial do aplicativo
     |-assets: Imagens, icones e outros recursos estáticos do app.
     |-components: Compomentes reutilizaveis da aplicação, normalmente são componentes sem estado (PureComponents)
-    |-repositories: Conjunto de funções que utilizam o AsyncStorage para armazenar os baralhos e flashcards.
-    |-utils: Funções auxiliares e contantes do aplicativo, utilizadas por todos os componentes.
+    |-repositories: Conjunto de funções que utilizam o AsyncStorage para armazenar os baralhos e questões.
     |-views: Componentes (com estado) que agrupam outros componentes para formar as telas do aplicativo.
 
+## Dispositivos homologados
+
+- Moto Max (Android 6)
+- Moto G7 (Android 9)
 
 ## Instalando o Create React Native App
 `npm install -g create-react-native-app`

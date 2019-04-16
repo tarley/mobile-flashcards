@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import {Container, Content, Card} from 'native-base';
 
 import * as BaralhoRepository from '../repositories/BaralhoRepository';
@@ -22,15 +22,17 @@ export default class HomeView extends Component {
             }))
     }
     selecionarBaralho(baralho) {
-        this.props.navigation.navigate('Baralho', {baralho})
+        this.props.navigation.navigate('Baralho', {
+            baralho, 
+            atualizarBaralhos: this.atualizarView
+        })
     }
     novoBaralho() {
         this.props.navigation.navigate('NovoBaralho', {
-            atualizarView: this.atualizarView
+            atualizarBaralhos: this.atualizarView
         })
     }
     render() {
-        console.log('ListaBaralhosView render')
         const {baralhos} = this.state;
 
         return(
@@ -57,7 +59,3 @@ export default class HomeView extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-
-});

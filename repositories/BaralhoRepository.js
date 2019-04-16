@@ -26,7 +26,7 @@ export function buscarPorTitulo(titulo) {
 }
 
 export function adicionarQuestao(titulo, pergunta, resposta) {
-    buscarTodos()
+    return buscarTodos()
         .then(baralhos => {
             return {
                 ...baralhos,
@@ -36,31 +36,5 @@ export function adicionarQuestao(titulo, pergunta, resposta) {
                 }
             }
         })
-        .then((novoBaralho) => {
-            AsyncStorage.removeItem(key).done();
-
-            console.log('*** Novo objeto criado ***')
-            console.log(novoBaralho)
-            AsyncStorage.mergeItem(key, JSON.stringify(novoBaralho)).done()
-        })
-
-    /*
-    const baralho = await buscarPorTitulo(titulo);
-    
-    if(baralho) {
-        baralho.cartas.push({
-            pergunta,
-            resposta
-        })
-        console.log(baralho)
-        await AsyncStorage.setItem(key, JSON.stringify({
-            [titulo]: {
-                titulo,
-                cartas: baralho.cartas
-            }    
-        }))
-    }
-    else 
-        throw new Error(`Baralho ${titulo} não foi encontrado`);
-        */
+        .then((novoBaralho) => AsyncStorage.mergeItem(key, JSON.stringify(novoBaralho)).done())
 }
