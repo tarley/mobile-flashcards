@@ -18,6 +18,7 @@ mobile-flashcards/
     |-App.js: Tela inicial da aplicação, aqui estão as rotas e o loading inicial do aplicativo
     |-assets: Imagens, icones e outros recursos estáticos do app.
     |-components: Compomentes reutilizaveis da aplicação, normalmente são componentes sem estado (PureComponents)
+    |-helpers: Funções auxiliáres para todos os componentes da aplicação.
     |-repositories: Conjunto de funções que utilizam o AsyncStorage para armazenar os baralhos e questões.
     |-views: Componentes (com estado) que agrupam outros componentes para formar as telas do aplicativo.
 

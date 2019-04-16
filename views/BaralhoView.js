@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 import {Container, Content, Text, Button} from 'native-base';
 
 import * as BaralhoRepository from '../repositories/BaralhoRepository';
+import * as NotificationUtil from '../helpers/NotificationUtil';
 
 import AppHeader from '../components/AppHeader';
 
@@ -37,6 +38,8 @@ export default class BaralhoView extends Component {
             )
     }
     iniciarQuiz() {
+        NotificationUtil.clearLocalNotification();
+
         const {baralho} = this.state;
         this.props.navigation.navigate('Quiz', {baralho});
     }

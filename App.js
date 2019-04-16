@@ -8,6 +8,7 @@ import { Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
 import * as BaralhoRepository from './repositories/BaralhoRepository';
+import * as NotificationUtil from './helpers/NotificationUtil';
 
 import HomeView from './views/HomeView';
 import BaralhoView from './views/BaralhoView';
@@ -40,6 +41,9 @@ export default class App extends React.Component {
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       ...Ionicons.font,
     });
+
+    NotificationUtil.clearLocalNotification();
+    NotificationUtil.setLocalNotification();
 
     // Carga inicial da aplicação
     BaralhoRepository.removerTodos();
