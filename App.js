@@ -42,7 +42,6 @@ export default class App extends React.Component {
       ...Ionicons.font,
     });
 
-    NotificationUtil.clearLocalNotification();
     NotificationUtil.setLocalNotification();
 
     // Carga inicial da aplicação
