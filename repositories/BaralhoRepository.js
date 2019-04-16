@@ -7,7 +7,7 @@ export function removerTodos() {
 }
 
 export function adicionar(titulo) {
-    AsyncStorage.mergeItem(key, JSON.stringify({
+    return AsyncStorage.mergeItem(key, JSON.stringify({
         [titulo]: {
             titulo,
             questoes: []
