@@ -76,6 +76,24 @@ export default class QuizView extends Component {
             <Content padder contentContainerStyle={styles.container}>
                 <Text style={styles.tituloResultado}>{`${totalAcertos}%`}</Text>
                 <Text style={styles.subtituloResultado}>Correto!</Text>
+                <Button block success 
+                    onPress={() => 
+                        this.setState({
+                            index: 0,
+                            exibirResposta: false,
+                            acertos: 0,
+                            erros: 0
+                        })
+                    }
+                    style={styles.botaoAcao}
+                >
+                    <Text>Recomeçar Quiz</Text>
+                </Button>
+                <Button block 
+                    onPress={() => this.voltar()}
+                    style={styles.botaoAcao}>
+                    <Text>Voltar ao baralho</Text>
+                </Button>
             </Content>
         )
     }
