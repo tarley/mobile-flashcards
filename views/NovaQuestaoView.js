@@ -19,12 +19,12 @@ export default class NovaQuestaoView extends Component {
         const baralho = this.props.navigation.getParam('baralho');
         const {pergunta, resposta} = this.state;
         
-        if(!pergunta || pergunta === ''){
+        if(!pergunta || pergunta.trim().length === 0){
             Alert.alert('Nova questão', 'Favor informar uma pergunta para a questão.');
             return;
         }
         
-        if(!resposta || resposta === ''){
+        if(!resposta || resposta.trim().length === 0){
             Alert.alert('Nova questão', 'Favor informar uma resposta para a questão.');
             return;
         }

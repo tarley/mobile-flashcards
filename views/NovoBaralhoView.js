@@ -18,7 +18,7 @@ export default class NovoBaralhoView extends Component {
     async criarBaralho() {
         const {titulo} = this.state;
         
-        if(!titulo || titulo === '') {
+        if(!titulo || titulo.trim().length === 0) {
             Alert.alert('Novo baralho', 'Favor informar um título para o baralho.');
             return
         }
