@@ -45,13 +45,7 @@ export default class App extends React.Component {
     NotificationUtil.setLocalNotification();
 
     // Carga inicial da aplicação
-    BaralhoRepository.removerTodos();
-    BaralhoRepository.adicionar('JavaScript');
-    BaralhoRepository.adicionar('React');
-    BaralhoRepository.adicionar('React Native');
-    
-    await BaralhoRepository.adicionarQuestao('JavaScript', 'Does React Native work with Android?', 'Yes, it works');
-    await BaralhoRepository.adicionarQuestao('JavaScript', 'Does React Native work with IOS?', 'Yes, it works, but more expensive');
+    BaralhoRepository.cargaInicial();
     
     this.setState({ loading: false });
   }

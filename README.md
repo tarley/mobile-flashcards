@@ -4,7 +4,9 @@ Aplicativo para dispositivos móveis (Android) que permite que usuários estudem
 
 ## Carga inicial da aplicação
 
-Para facilitar nos testes, a aplicação realiza uma carga inicial de dados. Essa carga se encontra no arquivo `App.js` linha 44. 
+Para facilitar os testes, a aplicação realiza uma carga inicial de dados. 
+A execução da carga se encontra no arquivo `App.js` linha 48. 
+As informações da carga se encontram no arquivo `./repositories/BaralhoRepository.js` método `cargaInicial`.
 
 ## Bibliotecas do projeto
 Este projeto utiliza as seguintes bibliotecas:

@@ -2,10 +2,6 @@ import {AsyncStorage} from 'react-native';
 
 const key = 'Baralhos';
 
-export function removerTodos() {
-    AsyncStorage.removeItem(key).done();
-}
-
 export function adicionar(titulo) {
     return AsyncStorage.mergeItem(key, JSON.stringify({
         [titulo]: {
@@ -37,4 +33,33 @@ export function adicionarQuestao(titulo, pergunta, resposta) {
             }
         })
         .then((novoBaralho) => AsyncStorage.mergeItem(key, JSON.stringify(novoBaralho)).done())
+}
+
+function removerTodos() {
+    return AsyncStorage.removeItem(key).done();
+}
+
+export function cargaInicial() {
+    
+    removerTodos()
+    
+    AsyncStorage.mergeItem(key, JSON.stringify(
+        {
+            'JavaScript': {
+                titulo: 'JavaScript',
+                questoes:[
+                    {pergunta: 'Does React Native work with Android?', resposta: 'Yes, it works'},
+                    {pergunta: 'Does React Native work with IOS?', resposta: 'Yes, it works, but more expensive'}
+                ]
+            },
+            'React': {
+                titulo: 'React',
+                questoes: []
+            },
+            'React Native': {
+                titulo: 'React Native',
+                questoes: []
+            }
+        }
+    )).done()
 }
