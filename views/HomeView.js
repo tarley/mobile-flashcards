@@ -17,9 +17,12 @@ export default class HomeView extends Component {
     }
     atualizarView = () => {
         BaralhoRepository.buscarTodos()
-            .then((baralhos) => this.setState({
-                baralhos: Object.values(baralhos)
-            }))
+            .then((baralhos) => {
+                if(baralhos)
+                    this.setState({
+                        baralhos: Object.values(baralhos)
+                    })
+            })
     }
     selecionarBaralho(baralho) {
         this.props.navigation.navigate('Baralho', {
